@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SocialNetwork.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SocialNetwork.Controllers
 {
@@ -82,7 +83,7 @@ namespace SocialNetwork.Controllers
             {
                 return View(model);
             }
-
+            
             // Сбои при входе не приводят к блокированию учетной записи
             // Чтобы ошибки при вводе пароля инициировали блокирование учетной записи, замените на shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, shouldLockout: false);
@@ -123,6 +124,7 @@ namespace SocialNetwork.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     await CustomUserManager.CreateUser(user.UserName);
+                    await UserManager.AddToRoleAsync(user.Id, "User");
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -132,11 +134,7 @@ namespace SocialNetwork.Controllers
 
             return View(model);
         }
-
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

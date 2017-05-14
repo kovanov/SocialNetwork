@@ -1,17 +1,16 @@
-﻿@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+﻿<ul class="nav navbar-nav navbar-right">
+    @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("Moderator"))
     {
-        @Html.AntiForgeryToken()
-
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-        </ul>
+        <li>@Html.ActionLink("Администрирование", "Index", "Admin")</li>
     }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Редактировать профиль", "Edit")</li>
+
+    @if (Request.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+    }
+    else
+    {
         <li>@Html.ActionLink("Вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+    }
+</ul>
