@@ -30,7 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +47,89 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDbContext.cs" />
+    <Compile Include="EntityInterfaces.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Migrations\201705111900503_initial migration.cs" />
+    <Compile Include="Migrations\201705111900503_initial migration.Designer.cs">
+      <DependentUpon>201705111900503_initial migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705121540235_renewed field types.cs" />
+    <Compile Include="Migrations\201705121540235_renewed field types.Designer.cs">
+      <DependentUpon>201705121540235_renewed field types.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705131054361_separate user and profile.cs" />
+    <Compile Include="Migrations\201705131054361_separate user and profile.Designer.cs">
+      <DependentUpon>201705131054361_separate user and profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705131105076_profiles migration.cs" />
+    <Compile Include="Migrations\201705131105076_profiles migration.Designer.cs">
+      <DependentUpon>201705131105076_profiles migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705131431330_somemigration.cs" />
+    <Compile Include="Migrations\201705131431330_somemigration.Designer.cs">
+      <DependentUpon>201705131431330_somemigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705131826436_testmigration.cs" />
+    <Compile Include="Migrations\201705131826436_testmigration.Designer.cs">
+      <DependentUpon>201705131826436_testmigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705141251125_reorganize fields.cs" />
+    <Compile Include="Migrations\201705141251125_reorganize fields.Designer.cs">
+      <DependentUpon>201705141251125_reorganize fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705141259481_reorganize fields again.cs" />
+    <Compile Include="Migrations\201705141259481_reorganize fields again.Designer.cs">
+      <DependentUpon>201705141259481_reorganize fields again.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705141342509_reorganize fields for user.cs" />
+    <Compile Include="Migrations\201705141342509_reorganize fields for user.Designer.cs">
+      <DependentUpon>201705141342509_reorganize fields for user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705141508585_delete sex.cs" />
+    <Compile Include="Migrations\201705141508585_delete sex.Designer.cs">
+      <DependentUpon>201705141508585_delete sex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DbEntities.cs" />
+    <Compile Include="Repository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705111900503_initial migration.resx">
+      <DependentUpon>201705111900503_initial migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705121540235_renewed field types.resx">
+      <DependentUpon>201705121540235_renewed field types.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705131054361_separate user and profile.resx">
+      <DependentUpon>201705131054361_separate user and profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705131105076_profiles migration.resx">
+      <DependentUpon>201705131105076_profiles migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705131431330_somemigration.resx">
+      <DependentUpon>201705131431330_somemigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705131826436_testmigration.resx">
+      <DependentUpon>201705131826436_testmigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705141251125_reorganize fields.resx">
+      <DependentUpon>201705141251125_reorganize fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705141259481_reorganize fields again.resx">
+      <DependentUpon>201705141259481_reorganize fields again.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705141342509_reorganize fields for user.resx">
+      <DependentUpon>201705141342509_reorganize fields for user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705141508585_delete sex.resx">
+      <DependentUpon>201705141508585_delete sex.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

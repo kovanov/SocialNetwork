@@ -13,15 +13,17 @@ namespace SocialNetwork.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserManager _customUserManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUserManager customUserManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _customUserManager = customUserManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -33,6 +35,18 @@ namespace SocialNetwork.Controllers
             private set
             {
                 _signInManager = value;
+            }
+        }
+
+        public IUserManager CustomUserManager
+        {
+            get
+            {
+                return _customUserManager ?? (_customUserManager = new UserManager());
+            }
+            private set
+            {
+                _customUserManager = value;
             }
         }
 
@@ -71,7 +85,7 @@ namespace SocialNetwork.Controllers
 
             // Сбои при входе не приводят к блокированию учетной записи
             // Чтобы ошибки при вводе пароля инициировали блокирование учетной записи, замените на shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -102,14 +116,17 @@ namespace SocialNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Login, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await CustomUserManager.CreateUser(user.UserName);
 
                     return RedirectToAction("Index", "Home");
                 }
+
                 AddErrors(result);
             }
 

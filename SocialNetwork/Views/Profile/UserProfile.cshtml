@@ -1,0 +1,33 @@
+﻿@model SocialNetwork.Models.ProfileViewModel
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<h2 class="col-md-offset-1">@Model.Surname @Model.Name</h2>
+<h2>&nbsp;</h2>
+<div>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="@String.Format("data:image/png;base64,{0}", Model.PhotoBase64)" style="width:100%" />
+        </div>
+        <div class="col-md-5">
+
+            <div class="row">
+                @Html.LabelFor(m => m.About, new { @class = "col-md-4 control-label" })
+                <div class="col-md-6">
+                    @Html.DisplayTextFor(m => m.About)
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-4 control-label" })
+                <div class="col-md-6">
+                    @Model.DateOfBirth.ToShortDateString()
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
