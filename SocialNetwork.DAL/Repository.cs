@@ -4,40 +4,46 @@ using System.Linq;
 
 namespace SocialNetwork.DAL
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository
+    {
+        private static readonly DbContext _dbContext = new AppDbContext();
+
+        protected DbContext DbContext { get => _dbContext; }
+    }
+
+    public class Repository<T> : Repository, IRepository<T> where T : class
     {
         public static Repository<T> Instance { get; } = new Repository<T>();
-        private readonly DbContext _context = new AppDbContext();
 
         private Repository() { }
 
         public IQueryable<T> Entities
         {
-            get => _context.Set<T>();
+            get => DbContext.Set<T>();
         }
 
         public void Create(T entity)
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            DbContext.Set<T>().Add(entity);
+            DbContext.SaveChanges();
         }
 
         public void Update(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
+            DbContext.Entry(entity).State = EntityState.Modified;
+            DbContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var entity = _context.Set<T>().Find(id);
+            var entity = DbContext.Set<T>().Find(id);
 
             if (entity != null)
             {
-                _context.Set<T>().Remove(entity);
+                DbContext.Set<T>().Remove(entity);
             }
 
-            _context.SaveChanges();
+            DbContext.SaveChanges();
         }
 
         private bool disposed = false;
@@ -48,7 +54,7 @@ namespace SocialNetwork.DAL
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    DbContext.Dispose();
                 }
             }
             this.disposed = true;

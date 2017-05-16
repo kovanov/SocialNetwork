@@ -14,15 +14,15 @@
         <div class="col-md-5">
 
             <div class="row">
-                @Html.LabelFor(m => m.About, new { @class = "col-md-4 control-label" })
-                <div class="col-md-6">
+                @Html.LabelFor(m => m.About, new { @class = "col-md-3 control-label" })
+                <div class="col-md-8">
                     @Html.DisplayTextFor(m => m.About)
                 </div>
             </div>
             <hr />
             <div class="row">
-                @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-4 control-label" })
-                <div class="col-md-6">
+                @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-3 control-label" })
+                <div class="col-md-8">
                     @Model.DateOfBirth.ToShortDateString()
                 </div>
             </div>

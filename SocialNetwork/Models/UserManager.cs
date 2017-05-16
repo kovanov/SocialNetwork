@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 
 namespace SocialNetwork.Models
 {
@@ -53,6 +56,20 @@ namespace SocialNetwork.Models
                 PhotoBase64 = profile.Photo,
                 Surname = profile.Surname
             };
+        }
+
+        public List<UserSearchViewModel> SearchUsers(string userQuery)
+        {
+            var userInfos = _manager.Search(userQuery);
+
+            return userInfos.Select(x => new UserSearchViewModel
+            {
+                Id = x.Id,
+                Login = x.Login,
+                Name = x.Name,
+                PhotoBase64 = string.IsNullOrEmpty(x.PhotoBase64) ? WebConfigurationManager.AppSettings["DefaultProfilePhotoBase64"] : x.PhotoBase64,
+                Surname = x.Surname
+            }).ToList();
         }
     }
 }

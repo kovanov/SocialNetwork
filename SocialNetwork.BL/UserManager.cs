@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.DAL;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -57,6 +58,37 @@ namespace SocialNetwork.BL
         public void CreateUser(string userIdentity)
         {
             _userRepo.Create(new User { AppAuthId = userIdentity });
+        }
+
+        public List<UserInfo> Search(string userQuery)
+        {
+            var searchResults = (from user in _userRepo.Entities
+                                 join profile in _profileRepo.Entities on user.ProfileId equals profile.Id into jp
+                                 from joinedProfile in jp.DefaultIfEmpty()
+
+                                 select new
+                                 {
+                                     ProfileId = user.Id,
+                                     Login = user.AppAuthId,
+                                     Name = joinedProfile.Name ?? string.Empty,
+                                     Surname = joinedProfile.Surname ?? string.Empty,
+                                     Photo = joinedProfile.Photo
+                                 }).ToList();
+
+            return searchResults
+                .Where(x =>
+                    x.Login.ToLower().Contains(userQuery) || 
+                    x.Name.ToLower().Contains(userQuery) ||
+                    x.Surname.ToLower().Contains(userQuery)
+                )
+                .Select(x => new UserInfo
+                {
+                    Id = x.ProfileId,
+                    Login = x.Login,
+                    Name = x.Name,
+                    Surname = x.Surname,
+                    PhotoBase64 = x.Photo != null ? Convert.ToBase64String(x.Photo) : null
+                }).ToList();
         }
 
         public UserProfile GetUserProfileById(int id)

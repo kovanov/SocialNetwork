@@ -7,7 +7,6 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,8 +26,7 @@
             {
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Сообщения", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Друзья", "About", "Home")</li>
+                        <li>@Html.ActionLink("Пользователи", "Users", "Profile")</li>
                     </ul>
 
                     @Html.Partial("_LoginPartial")

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SocialNetwork.Models.UserSearchViewModel>
+@using SocialNetwork.Controllers;
+<div class="container">
+    <div class="row">
+        <ul class="list-group">
+            @if (Model != null)
+            {
+                if (Model.Any())
+                {
+                    foreach (var searchResult in Model)
+                    {
+                        <li class="list-group-item">
+                            <a href="/Profile/UserProfile/@searchResult.Id">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img src="@String.Format("data:image/png;base64,{0}", searchResult.PhotoBase64)" style="max-width:200px; max-height:200px;" />
+                                    </div>
+
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            @Html.LabelFor(x => searchResult.Login, new { @class = "col-sm-offset-1 col-sm-2 control-label" })
+                                            <div class="col-sm-9">
+                                                @Html.DisplayTextFor(x => searchResult.Login)
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            @Html.LabelFor(x => searchResult.Name, new { @class = "col-sm-offset-1 col-sm-2 control-label" })
+                                            <div class="col-sm-9">
+                                                @Html.DisplayTextFor(x => searchResult.Name)
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            @Html.LabelFor(x => searchResult.Surname, new { @class = "col-sm-offset-1 col-sm-2 control-label" })
+                                            <div class="col-sm-9">
+                                                @Html.DisplayTextFor(x => searchResult.Surname)
+                                            </div>
+                                        </div>
+
+                                        @if (User.IsInRole(RolesAttribute.Admin) || User.IsInRole(RolesAttribute.Moderator))
+                                        {
+                                            <div class="row">
+                                                @Html.LabelFor(x => searchResult.Role, new { @class = "col-sm-offset-1 col-sm-2 control-label" })
+                                                <div class="col-sm-9">
+                                                    @Html.DisplayTextFor(x => searchResult.Role)
+                                                </div>
+                                            </div>
+                                            using (Html.BeginForm("ChangeRole", "Profile"))
+                                            {
+                                                <input type="hidden" name="userLogin" value="@searchResult.Login" />
+                                                <input type="hidden" name="oldRole" value="@searchResult.Role" />
+                                                if (searchResult.Role == RolesAttribute.User)
+                                                {
+                                                    <input type="hidden" name="newRole" value="@RolesAttribute.Moderator" />
+                                                    <button class="btn btn-default col-sm-offset-1" type="submit">Сделать модератором.</button>
+                                                }
+                                                else if (searchResult.Role == RolesAttribute.Moderator)
+                                                {
+                                                    <input type="hidden" name="newRole" value="@RolesAttribute.User" />
+                                                    <button class="btn btn-default col-sm-offset-1">Разжаловать до пользователя.</button>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">Ничего не найдено</li>
+                }
+            }
+        </ul>
+    </div>
+</div>

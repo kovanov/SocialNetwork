@@ -124,8 +124,7 @@ namespace SocialNetwork.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     await CustomUserManager.CreateUser(user.UserName);
-                    await UserManager.AddToRoleAsync(user.Id, "User");
-
+                    await UserManager.AddToRoleAsync(user.Id, RolesAttribute.User);
                     return RedirectToAction("Index", "Home");
                 }
 

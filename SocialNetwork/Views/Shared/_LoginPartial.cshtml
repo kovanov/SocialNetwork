@@ -1,9 +1,5 @@
 ﻿<ul class="nav navbar-nav navbar-right">
-    @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("Moderator"))
-    {
-        <li>@Html.ActionLink("Администрирование", "Index", "Admin")</li>
-    }
-    <li>@Html.ActionLink("Редактировать профиль", "Edit")</li>
+    <li>@Html.ActionLink("Редактировать профиль", "Edit", "Profile")</li>
 
     @if (Request.IsAuthenticated)
     {

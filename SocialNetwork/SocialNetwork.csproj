@@ -211,7 +211,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -223,6 +222,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\UserManager.cs" />
+    <Compile Include="Models\UserSearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -265,10 +265,12 @@
     <Content Include="Views\Profile\UserProfile.cshtml" />
     <Content Include="Views\Profile\NoSelfProfile.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\Users.cshtml" />
+    <Content Include="Views\Shared\_UsersSearchResults.cshtml" />
+    <Content Include="Views\Profile\NoProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "NoProfile";
+}
+
+<div class="jumbotron">
+    <h4>Запрошенный профиль не существует. Вы будете перенаправлены на домашнюю страницу через 5 секунд.</h4>
+</div>
+
+<script>
+    setTimeout(() => location.href = '/Home/Index', 5000);
+</script>
+

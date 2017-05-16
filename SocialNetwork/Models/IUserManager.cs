@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Models
 {
@@ -8,5 +9,6 @@ namespace SocialNetwork.Models
         ProfileViewModel GetUserProfileById(int id);
         Task CreateUser(string identity);
         void EditUserProfile(string userIdentity, ProfileViewModel profile);
+        List<UserSearchViewModel> SearchUsers(string userQuery);
     }
 }
